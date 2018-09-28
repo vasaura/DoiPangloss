@@ -1,4 +1,8 @@
 import os, shutil
+import sys
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 import xml.etree.ElementTree as ETree
 from parsing.DoiGenerator import getLastDoiNumberFromRecord, incrementDoi
 from parsing.Parse import parseRecord
@@ -7,7 +11,7 @@ from apiDatacite.API_DataCite_DOI import sendUrlDoiResource, sendUrlDoiPhrase
 from constantes import NAMESPACES, PARSE_FILE, DOI_PREFIX
 from parsing.parserAnnotation import parsePhrasesFromAnnotation
 from objects.Phrase import Phrase
-import sys
+
 
 if __name__ == "__main__":
 
