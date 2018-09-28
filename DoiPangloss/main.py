@@ -8,7 +8,7 @@ from parsing.DoiGenerator import getLastDoiNumberFromRecord, incrementDoi
 from parsing.Parse import parseRecord
 from apiDatacite.API_DataCite_Metadata import sendMetadataResource, sendMetadataPhrase
 from apiDatacite.API_DataCite_DOI import sendUrlDoiResource, sendUrlDoiPhrase
-from constantes import NAMESPACES, PARSE_FILE, DOI_PREFIX
+from constantes import NAMESPACES, PARSE_FILE, DOI_PREFIX, FOLDER_METADATA_RECORD, FOLDER_URL_DOI_RECORD, FOLDER_METADATA_PHRASE, FOLDER_URL_DOI_PHRASE
 from parsing.parserAnnotation import parsePhrasesFromAnnotation
 from objects.Phrase import Phrase
 
@@ -28,6 +28,20 @@ if __name__ == "__main__":
             print("Paramètre incorrect. Renseigner add ou add_update")
 
         else:
+
+            # creation et suppression d'un dossier et de son contenu
+
+            shutil.rmtree(FOLDER_METADATA_RECORD)
+            shutil.rmtree(FOLDER_URL_DOI_RECORD)
+            shutil.rmtree(FOLDER_METADATA_PHRASE)
+            shutil.rmtree(FOLDER_URL_DOI_PHRASE)
+
+            os.mkdir(FOLDER_METADATA_RECORD)
+            os.mkdir(FOLDER_URL_DOI_RECORD)
+            os.mkdir(FOLDER_METADATA_PHRASE)
+            os.mkdir(FOLDER_URL_DOI_PHRASE)
+
+
 
             # appel de la fonction getLastDoiNumberFromRecord pour obtenir le dernier numero DOI
             last_doi_number = getLastDoiNumberFromRecord(PARSE_FILE)
