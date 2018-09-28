@@ -33,8 +33,8 @@ if __name__ == "__main__":
 
             shutil.rmtree(FOLDER_METADATA_RECORD)
             shutil.rmtree(FOLDER_URL_DOI_RECORD)
-            shutil.rmtree(FOLDER_METADATA_PHRASE)
-            shutil.rmtree(FOLDER_URL_DOI_PHRASE)
+            # shutil.rmtree(FOLDER_METADATA_PHRASE)
+            # shutil.rmtree(FOLDER_URL_DOI_PHRASE)
 
             os.mkdir(FOLDER_METADATA_RECORD)
             os.mkdir(FOLDER_URL_DOI_RECORD)
