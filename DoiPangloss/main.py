@@ -117,5 +117,5 @@ if __name__ == "__main__":
 
                 # limite le nombre d'itérations sur les record et crée un nombre limité de fichiers et de DOI.
                 # mettre en commentaire pour faire fonctionner l'application sur la totalité du fichier Cocoon et créer tous les DOI
-                if index == 15:
+                if index == 1:
                    break
