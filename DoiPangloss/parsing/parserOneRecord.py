@@ -229,6 +229,7 @@ for identifiantAnnotation in olac.findall('dc:identifier', NAMESPACES):
         lienAnnotation = identifiantAnnotation.text
         break
 
+# ajouter le code pour créer une balise licence
 
 # récupère la description de la balise abstract sous la forme d'une liste avec le contenu de la balise
 # et/ou avec une liste contenant l'attribut langue et le contenu de la balise
