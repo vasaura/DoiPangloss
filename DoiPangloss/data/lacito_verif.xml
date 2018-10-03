@@ -2,44 +2,46 @@
 <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
 <record>
     <header>
-        <identifier>oai:crdo.vjf.cnrs.fr:crdo-NGE_FOURMI_SOUND</identifier>
-        <datestamp>2014-09-28</datestamp>
+        <identifier>oai:crdo.vjf.cnrs.fr:crdo-NEP_DAURE</identifier>
+        <datestamp>2018-06-27</datestamp>
+        <setSpec>Dallith</setSpec>
         <setSpec>Lacito</setSpec>
         <setSpec>Linguistique</setSpec>
     </header>
     <metadata>
         <olac:olac xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:olac="http://www.language-archives.org/OLAC/1.1/" xsi:schemaLocation="http://www.language-archives.org/OLAC/1.1/ http://www.language-archives.org/OLAC/1.1/olac.xsd">
-            <dc:title xml:lang="fr">Pourquoi la fourmi ne dort pas</dc:title>
-            <dc:subject olac:code="nge" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:language">Mankon</dc:subject>
-            <dc:language olac:code="nge" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:language">Mankon</dc:language>
-            <dc:language olac:code="fra" xml:lang="fr" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:language">Français</dc:language>
-            <dc:description xml:lang="fr">Il s'agit d'un petit conte mankon expliquant pourquoi la fourmi ne dort plus.</dc:description>
-            <dc:type olac:code="narrative" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:discourse-type"/>
-            <dc:type olac:code="primary_text" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:linguistic-type"/>
             <dc:publisher>Laboratoire de langues et civilisations à tradition orale</dc:publisher>
-            <dc:contributor olac:code="researcher" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:role">Leroy, Jacqueline</dc:contributor>
-            <dc:contributor olac:code="depositor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:role">Leroy, Jacqueline</dc:contributor>
-            <dc:contributor olac:code="speaker" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:role">Che Zuah, Clement</dc:contributor>
-            <dc:format xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">audio/x-wav</dc:format>
-            <dc:type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:DCMIType">Sound</dc:type>
-            <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">http://cocoon.huma-num.fr/data/archi/168365_record_22km.wav</dc:identifier>
-            <dcterms:alternative xml:lang="en">Why the ant does not sleep</dcterms:alternative>
-            <dcterms:isReferencedBy>LEROY Jacqueline -- Pourquoi la fourmi ne dort pas : Conte mankon -- In : Langues et cultures : Terrains d'Afrique. Hommage à France Cloarec-Heiss / P. Boyeldieu, P. Nougayrol (eds.) -- Louvain : Peeters, 2004, p.231-237</dcterms:isReferencedBy>
-            <dcterms:spatial xml:lang="fr">Afrique, Cameroun, Mankon</dcterms:spatial>
-            <dcterms:accessRights>Freely available for non-commercial use</dcterms:accessRights>
-            <dcterms:license xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">http://creativecommons.org/licenses/by-nc/2.5/</dcterms:license>
-            <dcterms:created xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">1978-03</dcterms:created>
-            <dcterms:extent>PT1M50S</dcterms:extent>
-            <dcterms:isRequiredBy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">oai:crdo.vjf.cnrs.fr:crdo-NGE_FOURMI</dcterms:isRequiredBy>
+            <dc:publisher>Centre d'Etudes Himalayennes</dc:publisher>
+            <dc:contributor olac:code="depositor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:role">Lecomte-Tilouine, Marie</dc:contributor>
+            <dc:contributor olac:code="compiler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:role">Lecomte-Tilouine, Marie</dc:contributor>
+            <dc:contributor olac:code="speaker" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:role">Laphe Dholi</dc:contributor>
+            <dc:contributor olac:code="interviewer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:role">Shahi, Prem Bahadur</dc:contributor>
+            <dc:contributor olac:code="transcriber" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:role">Shahi, Prem Bahadur</dc:contributor>
+            <dc:contributor olac:code="translator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:role">Khatiwada, Rajesh</dc:contributor>
+            <dc:contributor olac:code="editor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:role">Michailovsky, Boyd</dc:contributor>
+            <dc:rights>Copyright (c) Lecomte-Tilouine, Marie</dc:rights>
+            <dc:description xml:lang="fr">Cette version du conte "Le vieux bûcheron" donne une idée du dialecte du district d'Achham (ouest Népal), mélangé (comme c'est souvent le cas) avec du népali standard. Le dialect d'Achham n'a pas de tradition d'écriture et n'a pas fait l'objet d'étude linguistique à notre connaissance. Pour cette raison nous ne pouvons pas en proposer une transcription scientifique. Le conte est présenté ici dans une transcription impressioniste, en écriture Devanagari, dans l'espoir de stimuler l'étude des dialectes de l'ouest du Népal.</dc:description>
+            <dc:format xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">text/xml</dc:format>
+            <dc:type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:DCMIType">Text</dc:type>
+            <dc:language olac:code="fra" xml:lang="fr" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:language">Français</dc:language>
+            <dc:subject olac:code="nep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:language">Nepali</dc:subject>
+            <dc:title xml:lang="en">The old woodcutter</dc:title>
+            <dc:type olac:code="primary_text" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:linguistic-type"/>
+            <dc:type olac:code="narrative" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:discourse-type"/>
+            <dc:language olac:code="nep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="olac:language">Nepali</dc:language>
+            <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">http://cocoon.huma-num.fr/data/leconte-tilouine/masters/crdo-NEP_DAURE.xml</dc:identifier>
+            <dcterms:conformsTo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">oai:crdo.vjf.cnrs.fr:crdo-dtd_archive</dcterms:conformsTo>
+            <dcterms:isFormatOf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">http://cocoon.huma-num.fr/exist/crdo/display/crdo-NEP_DAURE</dcterms:isFormatOf>
+            <dcterms:requires xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">oai:crdo.vjf.cnrs.fr:crdo-NEP_DAURE_SOUND</dcterms:requires>
+            <dcterms:alternative xml:lang="fr">Le vieux bûcheron</dcterms:alternative>
+            <dcterms:isPartOf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">oai:crdo.vjf.cnrs.fr:crdo-COLLECTION_DALLITH</dcterms:isPartOf>
             <dcterms:isPartOf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">oai:crdo.vjf.cnrs.fr:crdo-COLLECTION_LACITO</dcterms:isPartOf>
-            <dcterms:isFormatOf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">http://cocoon.huma-num.fr/data/archi/mp3/168365_record_44k.mp3</dcterms:isFormatOf>
-            <dcterms:issued xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2011-03-28T22:23:25+02:00</dcterms:issued>
-            <dcterms:spatial xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:ISO3166">CM</dcterms:spatial>
-            <dcterms:isFormatOf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">http://cocoon.huma-num.fr/data/archi/masters/168365.wav</dcterms:isFormatOf>
-            <dcterms:available xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2011-03-28</dcterms:available>
-            <dcterms:spatial xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:Point">east=6.0; north=10.1</dcterms:spatial>
-            <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">http://cocoon.huma-num.fr/exist/crdo/ark:/87895/1.5-168365</dc:identifier>
-            <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">http://hdl.handle.net/10670/1.cxn9js</dc:identifier>
+            <dcterms:accessRights>Freely available for non-commercial use</dcterms:accessRights>
+            <dcterms:issued xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2011-01-29T19:37:26+01:00</dcterms:issued>
+            <dcterms:available xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2011-01-29</dcterms:available>
+            <dcterms:modified xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2018-04-17T11:32:36+02:00</dcterms:modified>
+            <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">http://cocoon.huma-num.fr/exist/crdo/ark:/87895/1.5-156835</dc:identifier>
+            <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">http://hdl.handle.net/10670/1.ebbgyk</dc:identifier>
         </olac:olac>
     </metadata>
 </record>
