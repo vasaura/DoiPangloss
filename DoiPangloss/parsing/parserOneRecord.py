@@ -1,5 +1,10 @@
 # --------Parsing XML ------------------#
 import xml.etree.ElementTree as ET
+import os, shutil
+import sys
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 from constantes import NAMESPACES, DOI_PANGLOSS, DOI_PREFIX, EASTLING_PLAYER, SHOW_TEXT, SHOW_OTHER, IDREF
 import re
 
@@ -90,6 +95,12 @@ if olac.find("dc:rights", NAMESPACES) is not None:
         droits = ""
 
 
+if olac.find('dcterms:license', NAMESPACES) is not None:
+    licence = olac.find('dcterms:license', NAMESPACES).text
+else:
+    licence = ''
+
+
 # les contributeurs. On extrait d'abord les valeurs et les rôles des contributeurs Olac
 contributeursOlac = []
 for contributor in olac.findall('dc:contributor', NAMESPACES):
@@ -161,7 +172,7 @@ for sujet in olac.findall('dc:subject', NAMESPACES):
                 listeAttribMot = [codeXmlLangSujet, motCle]
                 # ajout de la liste attribut langue et mot clé à la liste de mots clés
                 sujets.append(listeAttribMot)
-print (labelLangue)
+
 # Le type de ressource: récupère les informations des balises dc:type
 # liste qui récupère le contenu de la balise type et la valeur de l'attribut olac:code et qui vont être affectés à l'élément type en sortie
 
@@ -349,7 +360,6 @@ elif typeRessourceGeneral == "Text" and format[0] == "application" and requires:
 elif typeRessourceGeneral == "Collection":
     url = 'http://lacito.vjf.cnrs.fr/pangloss/index.html'
 
-print(url)
 
 # --------Building XML ------------------#
 
@@ -464,6 +474,11 @@ if droitAccess:
         rightsList = ET.SubElement(racine, "rightsList")
         rights = ET.SubElement(rightsList, "rights")
         rights.text = droitAccess
+
+# licence
+if licence:
+    licencedoi = ET.SubElement(rightsList, "rights", rightsURI=licence)
+    licencedoi.text = "Creative Commons Attribution-NonCommercial 2.5 Generic"
 
 
 # le publisher
