@@ -31,8 +31,8 @@ if __name__ == "__main__":
 
             # creation et suppression d'un dossier et de son contenu
 
-            #shutil.rmtree(FOLDER_METADATA_RECORD)
-            #shutil.rmtree(FOLDER_URL_DOI_RECORD)
+            shutil.rmtree(FOLDER_METADATA_RECORD)
+            shutil.rmtree(FOLDER_URL_DOI_RECORD)
             shutil.rmtree(FOLDER_METADATA_PHRASE)
             shutil.rmtree(FOLDER_URL_DOI_PHRASE)
             
