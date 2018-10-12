@@ -17,7 +17,7 @@ class Record:
     """
 
     def __init__(self, doiIdentifiant, identifiantOAI, publisherInstitution, format, annee, taille, titre,
-                 codeXmlLangTitre, titresSecondaire, droits, contributeursDoi, droitAccess,
+                 codeXmlLangTitre, titresSecondaire, droits, licence, contributeursDoi, droitAccess,
                  codeLangue, labelLangue, sujets, labelType, typeRessourceGeneral, isRequiredBy,
                  requires, identifiant_Ark_Handle, lienAnnotation, abstract, tableDeMatiere, descriptionsOlac,
                  labelLieux, longitudeLatitude, pointCardinaux, url):
@@ -47,6 +47,8 @@ class Record:
         :type titresSecondaire: list
         :param droits: personne qui détient les droits sur la ressource. Elément présent dans la balise <dc:rights>
         :type droits: str
+        :param licence: type de licence concernant les droits. Elément présent dans la balise <dcterms:licence>
+        :type licence: str
         :param contributeursDoi: nom des contributeurs de la ressource. Eléments convertis à partir de la liste des contributeurs
         :type contributeursDoi: list
         :param droitAccess: description des droits d'acces à la ressource. Elément présent dans la balise <dcterms:accessRights>
@@ -101,6 +103,7 @@ class Record:
         self.codeXmlLangTitre = codeXmlLangTitre
         self.titresSecondaire = titresSecondaire
         self.droits = droits
+        self.licence = licence
         self.contributeursDoi = contributeursDoi
         self.droitAccess = droitAccess
         self.codeLangue = codeLangue
@@ -251,6 +254,11 @@ class Record:
             rightsList = ET.SubElement(racine, "rightsList")
             rights = ET.SubElement(rightsList, "rights")
             rights.text = self.droitAccess
+
+        # licence
+        if self.licence:
+            licencedoi = ET.SubElement(rightsList, "rights", rightsURI=self.licence)
+            licencedoi.text = "Creative Commons Attribution-NonCommercial 2.5 Generic"
 
         # le publisher
         publisher = ET.SubElement(racine, "publisher")
