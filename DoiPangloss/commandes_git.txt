@@ -1,0 +1,41 @@
+Branche principale : PreProduction !!!!
+Créer une nouvelle branche avant de commencer une modification !!!!
+Se placer sur la branche dans laquelle on veut faire le changement !!!!
+Absolument faire un add et un commit avant de changer de branche pour valider la modif uniquement dans cette branche quand une modif est faite !!!!
+Faire un pull request quand les modifs sont terminées sur une branche et choisir de quelle branche à quelle branche faire le merge !!!!
+
+Vérifier où on est et quelles branches existent 
+git branch
+
+Récupérer les modifs
+git pull
+
+Créer une branche depuis PreProduction pour en recupérer le contenu (faire un git checkout PreProduction avant !!!!)
+git branch PathPc
+
+Se déplacer dans la branche
+git checkout PathPc
+
+Supprimer une branche 
+git branch -d PathPc
+
+Voir modifs
+git status
+
+Prépare au push : ajoute
+git add .
+
+Prépare au push : expliciter les modifs
+git commit -m "mise à jour path pour pc"
+
+Merge (en étant sur la branche BrancheTest concernée par le merge pour faire un merge à partir de PreProduction)
+git merge master
+
+Push pour la première fois
+git push --set-upstream origin PathPc 
+
+Push pour les autres fois
+git push
+
+Pour récupérer la dernière version
+git stash
