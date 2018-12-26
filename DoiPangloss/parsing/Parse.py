@@ -21,7 +21,8 @@ def parseRecord (record):
         doiIdentifiant = ""
         for identifiant in record.findall('.//dc:identifier', NAMESPACES):
             if "https://doi.org/" in identifiant.text:
-                doiIdentifiant = identifiant.text
+                doiIdentifiant = identifiant.text[16:]
+                print(doiIdentifiant)
 
         # --------Parse header--------#
 

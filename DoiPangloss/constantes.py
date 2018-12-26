@@ -11,7 +11,7 @@ NAMESPACES = {
             "oai" : "http://www.openarchives.org/OAI/2.0/",
             "doi" : "http://datacite.org/schema/kernel-4"
         }
-DOI_PREFIX = "10.5072/pangloss-"
+DOI_PREFIX = "10.24397/pangloss-"
 SHOW_TEXT = "http://lacito.vjf.cnrs.fr/pangloss/corpus/show_text.php?id="
 IDREF = "&idref="
 SHOW_OTHER = "http://lacito.vjf.cnrs.fr/pangloss/corpus/show_other.php?id="
@@ -19,7 +19,7 @@ EASTLING_PLAYER = 'http://lacito.vjf.cnrs.fr/pangloss/corpus/eastling_player.php
 SCHEME_URI = "http://search.language-archives.org/index.html"
 PURL = "http://purl.org/poi/crdo.vjf.cnrs.fr/"
 USERNAME = "INIST.LACITO"
-PASSWORD = "LaCiTO_DOI"
+PASSWORD = ""
 ENDPOINTMETADATA = "https://mds.datacite.org/metadata/"
 ENDPOINTDOI = "https://mds.datacite.org/doi/"
 CRITICAL_LOG = 'critical.log'
