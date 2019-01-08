@@ -1,5 +1,7 @@
 import xml.etree.ElementTree as ETree
+import re
 from constantes import NAMESPACES
+from apiDatacite.API_Get_DataCite_DOI import extractDoiOai
 
 # --------utilisations des trois méthodes suivantes pour crééer le nom DOI à l'aide d'un compteur et retour du dernier numéro --------# --------#
 
@@ -50,6 +52,42 @@ def getLastDoiNumberFromRecord(file):
 
     return lastDoi
 
+    
+def getLastDoiNumberFromDataCite():
+    """
+    Fonction qui parcourt la liste contenant tous les identifiants DOI extraite à partir du DataCite et retourne la valeur chiffrée du dernier doi
+    :return: le dernier doi
+    :rtype int
+    """
+
+    lastDoi = 0
+    listAllDoiIdentifier = []
+    dicoDoiOai = {}
+    expression = r"^[0-9]{7}$"
+    
+    
+    
+    dicoDoiOai = extractDoiOai()
+    
+    
+    # for doi in dicoDoiOai.values():
+        # print ('CONTENU : ', doi)
+    
+   
+    for doi in dicoDoiOai.keys():
+        
+        if re.search(expression, doi[-7:]) is not None:
+            # print (doi)
+            listAllDoiIdentifier.append(doi)
+    
+    for doi in listAllDoiIdentifier:
+        # puisqu'un doi aura ce type de structure "doi:10.5072/PANGLOSS-0000003",
+        # il faut récupérer uniquement les 7 derniers chiffres
+        number = int(doi[-7:])
+        if lastDoi < number:
+            lastDoi = number
+    # print("lastDoi = ", lastDoi)        
+    return lastDoi
 
 def incrementDoi(lastDoiNumber):
     """

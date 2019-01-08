@@ -20,8 +20,9 @@ def extractDoiOai():
 
     # creation d'une liste qui va stocker tous les noms DOI
     listDOI = response.text.split("\n")
-
-    dicoOaiDoi ={}
+    
+    
+    dicoDoiOai ={}
     # pour chaque nom DOI de la liste
     for doi in listDOI:
         # envoie une requête GET pour récupérer le fichier de métadonnées du DOI demandé sous la forme d'une chaine de caractères.
@@ -38,11 +39,14 @@ def extractDoiOai():
             oaiFromDatacite = root.find('.//doi:alternateIdentifier[@alternateIdentifierType="internal ID"]', NAMESPACES).text
         else:
             oaiFromDatacite = ""
-
+        
+       
         #extraire l'identifiant doi de la balise identifier
         doiFromDatacite = root.find('.//doi:identifier', NAMESPACES).text
 
-        # ajouter au dictionnaire l'identifiant oai comme clé et l'identifiant doi comme valeur
-        dicoOaiDoi [oaiFromDatacite] = doiFromDatacite
+        # ajouter au dictionnaire l'identifiant doi comme clé et l'identifiant oai comme valeur
+        dicoDoiOai [doiFromDatacite] = oaiFromDatacite
 
-    return dicoOaiDoi
+        # print (dicoDoiOai)
+        
+    return dicoDoiOai
