@@ -21,7 +21,7 @@ def parseRecord (record):
         doiIdentifiant = ""
         for identifiant in record.findall('.//dc:identifier', NAMESPACES):
             if "https://doi.org/" in identifiant.text:
-                doiIdentifiant = identifiant.text
+                doiIdentifiant = identifiant.text[16:]
 
         # --------Parse header--------#
 
@@ -102,6 +102,12 @@ def parseRecord (record):
             else:
                 message = "Il y a une autre forme d'écrire les droits"
                 logging.info(message)
+
+        # licence
+        if olac.find('dcterms:license', NAMESPACES) is not None:
+            licence = olac.find('dcterms:license', NAMESPACES).text
+        else:
+            licence = ''
 
         # les contributeurs. On extrait d'abord les valeurs et les rôles des contributeurs Olac
         contributeursOlac = []
@@ -397,9 +403,8 @@ def parseRecord (record):
             url = 'http://lacito.vjf.cnrs.fr/pangloss/index.html'
 
         record_object = Record(doiIdentifiant, identifiantOAI, publisherInstitution, format, annee, taille, titre,
-                               codeXmlLangTitre, titresSecondaire, droits, contributeursDoi, droitAccess, codeLangue,
+                               codeXmlLangTitre, titresSecondaire, droits, licence, contributeursDoi, droitAccess, codeLangue,
                                labelLangue, sujets, labelType, typeRessourceGeneral, isRequiredBy, requires,
                                identifiant_Ark_Handle, lienAnnotation, abstract, tableDeMatiere,
                                descriptionsOlac, labelLieux, longitudeLatitude, pointCardiaux, url)
         return record_object
-

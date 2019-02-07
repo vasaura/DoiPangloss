@@ -11,6 +11,7 @@ NAMESPACES = {
             "oai" : "http://www.openarchives.org/OAI/2.0/",
             "doi" : "http://datacite.org/schema/kernel-4"
         }
+# 10.5072 10.24397
 DOI_PREFIX = "10.5072/pangloss-"
 SHOW_TEXT = "http://lacito.vjf.cnrs.fr/pangloss/corpus/show_text.php?id="
 IDREF = "&idref="
