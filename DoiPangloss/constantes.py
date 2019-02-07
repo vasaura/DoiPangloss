@@ -19,7 +19,7 @@ SHOW_OTHER = "http://lacito.vjf.cnrs.fr/pangloss/corpus/show_other.php?id="
 EASTLING_PLAYER = 'http://lacito.vjf.cnrs.fr/pangloss/corpus/eastling_player.php?idref='
 SCHEME_URI = "http://search.language-archives.org/index.html"
 PURL = "http://purl.org/poi/crdo.vjf.cnrs.fr/"
-USERNAME = "INIST.LACITO"
+USERNAME = ""
 PASSWORD = ""
 ENDPOINTMETADATA = "https://mds.datacite.org/metadata/"
 ENDPOINTDOI = "https://mds.datacite.org/doi/"
