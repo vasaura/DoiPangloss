@@ -86,7 +86,7 @@ class Record:
         :param url: le lien URL de la ressource sur le site Pangloss de Lacito
         :type url: str
         """
-        # self.doiIdentifiant = doiIdentifiant.replace('https://doi.org/','')
+
         self.doiIdentifiant = doiIdentifiant
         self.identifiantOAI = identifiantOAI
         self.setSpec = "Linguistique"
