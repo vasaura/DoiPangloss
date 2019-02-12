@@ -8,7 +8,7 @@ from parsing.DoiGenerator import getLastDoiNumberFromRecord, incrementDoi, getLa
 from parsing.Parse import parseRecord
 from apiDatacite.API_DataCite_Metadata import sendMetadataResource, sendMetadataPhrase
 from apiDatacite.API_DataCite_DOI import sendUrlDoiResource, sendUrlDoiPhrase
-from apiDatacite.API_Get_DataCite_DOI import extractDoiOai
+from apiDatacite.API_Get_DataCite_Json import createDicoDoiOai
 from constantes import NAMESPACES, PARSE_FILE, DOI_PREFIX, FOLDER_METADATA_RECORD, FOLDER_URL_DOI_RECORD, FOLDER_METADATA_PHRASE, FOLDER_URL_DOI_PHRASE
 from parsing.parserAnnotation import parsePhrasesFromAnnotation
 from objects.Phrase import Phrase
@@ -22,17 +22,27 @@ def addDOI():
     # appel de la fonction getLastDoiNumberFromRecord pour obtenir le dernier numero DOI
     last_doi_number = getLastDoiNumberFromDataCite()
 
+    print ('Lancement de la procédure d\'ajout de doi....')
+   
+    num = 0
+  
+    
 ##    if last_doi_number_cocoon != last_doi_number:
 ##        print ('Certains DOI ne sont pas intégrés dans cocoon')
 ##    else:
 ##        print ('DOI à jour dans cocoon')
     
+    resume_add = open("resume_add.txt", "w", encoding="utf-8")
+    
     # parsing du fichier xml Cocoon
     for index, record in enumerate(root.findall(".//oai:record", NAMESPACES)):
 
+        num = num + 1
+    
         # appel de la fonction parseRecord pour parser chaque record et créer un objet record
         objetRecord = parseRecord(record)
 
+        
         
         # si les droits d'acces à la ressources sont conditionnés par un mot de passe, ne pas créer de DOI
         if 'Access restricted' in objetRecord.droitAccess:
@@ -41,22 +51,29 @@ def addDOI():
 
         # --------gestion de la reprise après le premier lancement--------#
         oaiCocoon = objetRecord.identifiantOAI
-        doiCocoon = objetRecord.doiIdentifiant.replace("https://doi.org/","")
+        doiCocoon = objetRecord.doiIdentifiant.replace("doi:","")
         
         dicoDoiOai = {}
         doiExists = True    
-        dicoDoiOai = extractDoiOai()
+        dicoDoiOai = createDicoDoiOai()
+        
+        
+        print ('Ressource ', index+1, ' : ', oaiCocoon)
         
         # si la ressource a déjà un doi affecté
         if objetRecord.doiIdentifiant != "":
             doiExists = True
-
+            print (len(dicoDoiOai))
             if doiCocoon in dicoDoiOai and oaiCocoon == dicoDoiOai[doiCocoon]:
-                print ('Doi déjà créé pour cette ressource : ', objetRecord.doiIdentifiant)
+                print ('Doi déjà créé pour cette ressource : '+ objetRecord.doiIdentifiant+'\n')
+                resume_add.write ('Doi déjà créé pour cette ressource : '+ objetRecord.doiIdentifiant+'\n')
             # on ne fait rien car le doi existe dans cocoon mais pas dans datacite ! Problème !
             else:
-                print ('!!!! Doi déjà créé pour cette ressource mais ne décrit pas la même ressource que dans datacite et dans cocoon (pas le même oai) : ', objetRecord.doiIdentifiant, ' !!!!')
-                print ('!!!! MISE A JOUR A FAIRE POUR ECRASEMENT !!!!')
+                print (oaiCocoon,' : ', dicoDoiOai[doiCocoon])
+                print ('ATTENTION :  Doi déjà créé pour cette ressource mais ne décrit pas la même ressource que dans datacite et dans cocoon (pas le même oai) : '+objetRecord.doiIdentifiant, ' !!!!\n')
+                print ('ATTENTION :  Mise à jour et écrasement \n')
+                resume_add.write ('!ATTENTION :  Doi déjà créé pour cette ressource mais ne décrit pas la même ressource que dans datacite et dans cocoon (pas le même oai) : '+ objetRecord.doiIdentifiant+ ' !!!!\n')
+                resume_add.write ('ATTENTION :  Mise à jour et écrasement \n')
             
         
         # si la ressource n a pas de doi affecté
@@ -64,14 +81,16 @@ def addDOI():
             # on vérifie que cet oai n\'a pas un doi dans datacite et que celui ci n\'aurait juste pas encore été intégré dans cocoon
             if (oaiCocoon in dicoDoiOai.values()):
                 
-                print ('!!!! Doi pas encore créé pour cette ressource mais l\'oai de cette ressource a déjà un doi affecté dans datacite ', oaiCocoon, ' !!!!')
-                print ('!!!! CORRIGEZ L\'ERREUR !!!!')
+                print ('ATTENTION :  Doi pas encore créé pour cette ressource mais l\'oai de cette ressource a déjà un doi affecté dans datacite '+ oaiCocoon+ ' !!!!\n')
+              
+                resume_add.write ('ATTENTION :  Doi pas encore créé pour cette ressource mais l\'oai de cette ressource a déjà un doi affecté dans datacite '+ oaiCocoon+ ' !!!!\n')
+                
                 doiExists = True
                 # break
             
             else:
-                print ('Doi pas encore créé pour cette ressource : ', oaiCocoon)
-                print ('Création et affectation d\'un doi....')
+                print (oaiCocoon +' -> Création et affectation d\'un doi....\n')
+                resume_add.write (oaiCocoon +' -> Création et affectation d\'un doi....\n')
                 doiExists = False
 
         if doiExists == False:
@@ -94,58 +113,20 @@ def addDOI():
             if fichier_textRessource:
                 sendUrlDoiResource(fichier_textRessource, objetRecord.doiIdentifiant)
          
-        
+                
+     
 
-            # ---------------------------- PARSING ANNOTATION ---------------------#
-
-            # extrait le lien url pour chaque fichier xml
-            if objetRecord.lienAnnotation:
-
-                # appel de la fonction parsePhrasesFromAnnotation pour récupérer une liste avec les id des phrases
-                if parsePhrasesFromAnnotation(objetRecord.lienAnnotation) is not None:
-                    listeId, type = parsePhrasesFromAnnotation(objetRecord.lienAnnotation)
-
-                    if listeId:
-                        # pour chaque id, génération d'un numéro doi, d'un fichier xml et d'un fichier texte
-                        for indexid, id in enumerate(listeId):
-
-                            # numéro DOI de la phrase
-                            if type == "sentence":
-                                affixe = "S" + str(indexid+1)
-
-                            elif type == "word":
-                                affixe = "W" + str(indexid+1)
-                            doiPhrase = objetRecord.doiIdentifiant + "." + affixe
-
-                            # instantiation d'un objet de la classe Phrase
-                            objetPhrase = Phrase(id, doiPhrase, affixe, objetRecord)
-                            # création du fichier xml pour chaque phrase ou mot
-                            fichier_xmlPhrase = objetPhrase.buildMetadataPhrase()
-        
-                            # création du fichier texte avec le DOI et l'URL de la phrase
-                            fichier_textPhrase = objetPhrase.generateFileUrlDoiPhrase()
-                            
-                            # methodes pour interroger l'API de Datacite et enregistrer le fichier de metadonnées et le fichier texte
-                            if fichier_xmlPhrase:
-                                sendMetadataPhrase(fichier_xmlPhrase, id)
-        
-                            if fichier_textPhrase:
-                                sendUrlDoiPhrase(fichier_textPhrase, doiPhrase, id)
-        
-                            # limite le nombre d'itérations pour la phrase et le mot pour tester.
-                            # mettre en commentaire pour faire fonctionner sur la totalité de l'annotation
-                            if indexid == 3:
-                                break
-                                                   
-
-            # limite le nombre d'itérations sur les record et crée un nombre limité de fichiers et de DOI.
-            # mettre en commentaire pour faire fonctionner l'application sur la totalité du fichier Cocoon et créer tous les DOI
-            if index == 3:
-               break
+        # limite le nombre d'itérations sur les record et crée un nombre limité de fichiers et de DOI.
+        # mettre en commentaire pour faire fonctionner l'application sur la totalité du fichier Cocoon et créer tous les DOI
+        # if index == 4:
+           # break
 
     
     
-
+    resume_add.close()
+    
+    print ('Procédure de création terminée !')
+    
 def updateDOI():
     
     # appel de la fonction getLastDoiNumberFromRecord pour obtenir le dernier numero DOI
@@ -154,14 +135,25 @@ def updateDOI():
     # appel de la fonction getLastDoiNumberFromRecord pour obtenir le dernier numero DOI
     last_doi_number = getLastDoiNumberFromDataCite()
 
+    print ('Lancement de la procédure de mise à jour de doi....')
+    
 ##    if last_doi_number_cocoon != last_doi_number:
 ##        print ('Certains DOI ne sont pas intégrés dans cocoon')
 ##    else:
 ##        print ('DOI à jour dans cocoon')
     
+    num = 0
+    
+    
+    resume_update = open("resume_update.txt", "w", encoding="utf-8")
+    
+    
+    
     # parsing du fichier xml Cocoon
     for index, record in enumerate(root.findall(".//oai:record", NAMESPACES)):
-
+        
+        num = num + 1
+        
         # appel de la fonction parseRecord pour parser chaque record et créer un objet record
         objetRecord = parseRecord(record)
 
@@ -173,28 +165,32 @@ def updateDOI():
 
         # --------gestion de la reprise après le premier lancement--------#
         oaiCocoon = objetRecord.identifiantOAI
-        doiCocoon = objetRecord.doiIdentifiant.replace("https://doi.org/","")
+        doiCocoon = objetRecord.doiIdentifiant.replace("doi:","")
        
-        
+        # print ('Création du dictionnaire des doi')
         dicoDoiOai = {}
         doiExists = False    
-        dicoDoiOai = extractDoiOai()
+        dicoDoiOai = creatdDicoDoiOai()
+        
+        print ('Ressource ', index+1, ' : ', oaiCocoon)
         
         # si la ressource à mettre à jour a bien un doi affecté dans cocoon
         if objetRecord.doiIdentifiant != "":
           
             # si la ressource a le meme doi et oai que dans le datacite (si on met bien à jour la meme ressource vs si on ecrase une ressource par une autre)
             if doiCocoon in dicoDoiOai and oaiCocoon == dicoDoiOai[doiCocoon]:  
-                print ('Le doi existe bien dans le datacite et correspond bien à la même ressource (meme oai) : ', objetRecord.doiIdentifiant)
+                print ('Ressource '+ objetRecord.doiIdentifiant+' : déjà enregistré dans le datacite (et même oai) \n')
+                resume_update.write ('Ressource '+ objetRecord.doiIdentifiant+' : déjà enregistrée dans le datacite (et même oai) \n')
                 doiExists = True
             else:   
-                print ('Le doi existe bien dans le datacite mais correspond a priori une autre ressource (oai différent). Ecrasement.... : ', doiCocoon)
+                print ('Doi déjà existant dans le datacite mais correspond à une autre ressource (oai différent). Procédure d\'écrasement.... : '+ doiCocoon+'\n')
+                resume_update.write ('Doi déjà existant dans le datacite mais correspond à une autre ressource (oai différent). Procédure d\'écrasement.... : '+ doiCocoon+'\n')
                 doiExists = True
             # continue
             
         if doiExists == True:
-            print ('Procédure de mise à jour de : ', oaiCocoon, '....' )
-            
+            print (' -> Procédure de mise à jour de : '+oaiCocoon+'....\n' )
+            resume_update.write (' -> Procédure de mise à jour de : '+ oaiCocoon+ '....\n' )
             # appel de la methode buildMetadataResource de la classe Record pour générer le fichier xml
             fichier_xmlRessource = objetRecord.buildMetadataResource()
 
@@ -209,66 +205,36 @@ def updateDOI():
             if fichier_textRessource:
                 sendUrlDoiResource(fichier_textRessource, objetRecord.doiIdentifiant)
          
+                 
+
         
 
-            # ---------------------------- PARSING ANNOTATION ---------------------#
-
-            # extrait le lien url pour chaque fichier xml
-            if objetRecord.lienAnnotation:
-
-                # appel de la fonction parsePhrasesFromAnnotation pour récupérer une liste avec les id des phrases
-                if parsePhrasesFromAnnotation(objetRecord.lienAnnotation) is not None:
-                    listeId, type = parsePhrasesFromAnnotation(objetRecord.lienAnnotation)
-
-                    if listeId:
-                        # pour chaque id, génération d'un numéro doi, d'un fichier xml et d'un fichier texte
-                        for indexid, id in enumerate(listeId):
-
-                            # numéro DOI de la phrase
-                            if type == "sentence":
-                                affixe = "S" + str(indexid+1)
-
-                            elif type == "word":
-                                affixe = "W" + str(indexid+1)
-                            doiPhrase = objetRecord.doiIdentifiant + "." + affixe
-
-                            # instantiation d'un objet de la classe Phrase
-                            objetPhrase = Phrase(id, doiPhrase, affixe, objetRecord)
-                            # création du fichier xml pour chaque phrase ou mot
-                            fichier_xmlPhrase = objetPhrase.buildMetadataPhrase()
-        
-                            # création du fichier texte avec le DOI et l'URL de la phrase
-                            fichier_textPhrase = objetPhrase.generateFileUrlDoiPhrase()
-                            
-                            # methodes pour interroger l'API de Datacite et enregistrer le fichier de metadonnées et le fichier texte
-                            if fichier_xmlPhrase:
-                                sendMetadataPhrase(fichier_xmlPhrase, id)
-        
-                            if fichier_textPhrase:
-                                sendUrlDoiPhrase(fichier_textPhrase, doiPhrase, id)
-        
-                            # limite le nombre d'itérations pour la phrase et le mot pour tester.
-                            # mettre en commentaire pour faire fonctionner sur la totalité de l'annotation
-                            if indexid == 3:
-                                break
-                                                   
-
-            # limite le nombre d'itérations sur les record et crée un nombre limité de fichiers et de DOI.
-            # mettre en commentaire pour faire fonctionner l'application sur la totalité du fichier Cocoon et créer tous les DOI
-            if index == 3:
-               break    
+        # limite le nombre d'itérations sur les record et crée un nombre limité de fichiers et de DOI.
+        # mettre en commentaire pour faire fonctionner l'application sur la totalité du fichier Cocoon et créer tous les DOI
+        # if index == 4:
+            # break 
+    
+    resume_update.close()
+    
+    print ('Procédure de mise à jour terminée !')
+    
+    
+    
+    
+    
+    
     
     
 
 if __name__ == "__main__":
 
+    print ('Démarrage....')
 
     # Récupération du paramétre au lancement du programme
     if len(sys.argv) == 1:
         print("Paramètre manquant. Renseigner add pour traiter uniquement les nouvelles ressources ou update pour faire des mises à jour de ressources ayant deja un doi")
     else:
         parameter = sys.argv[1]
-
 
         # Teste si le paramètre est correctement renseigné
         if parameter != 'update' and parameter != 'add':
@@ -300,7 +266,7 @@ if __name__ == "__main__":
 
 
             # --------Parse.py OAI-PMH avec etree--------#
-
+            print ('Parsing....')
             tree = ETree.parse(PARSE_FILE)
             root = tree.getroot()
 
