@@ -45,8 +45,8 @@ def addDOI():
         
         
         # si les droits d'acces à la ressources sont conditionnés par un mot de passe, ne pas créer de DOI
-        if 'Access restricted' in objetRecord.droitAccess:
-            continue
+        # if 'Access restricted' in objetRecord.droitAccess:
+            # continue
         
 
         # --------gestion de la reprise après le premier lancement--------#
@@ -159,8 +159,8 @@ def updateDOI():
 
         
         # si les droits d'acces à la ressources sont conditionnés par un mot de passe, ne pas créer de DOI
-        if 'Access restricted' in objetRecord.droitAccess:
-            continue
+        # if 'Access restricted' in objetRecord.droitAccess:
+            # continue
         
 
         # --------gestion de la reprise après le premier lancement--------#
@@ -170,7 +170,7 @@ def updateDOI():
         # print ('Création du dictionnaire des doi')
         dicoDoiOai = {}
         doiExists = False    
-        dicoDoiOai = creatdDicoDoiOai()
+        dicoDoiOai = createDicoDoiOai()
         
         print ('Ressource ', index+1, ' : ', oaiCocoon)
         
