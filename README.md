@@ -1,3 +1,4 @@
+# Le développement de cette application a été déplacé ici https://github.com/CNRS/DoiPangloss/releases
 # Spécifications techniques de l'application DoiPangloss
 
 L'application DoiPangloss est une application développée en Python qui prend en entrée un fichier XML du modèle Cocoon et génère pour chaque ressource et chaque phrase ou mot constituant les fichiers d'annotations, des fichiers XML, des fichiers texte (contenant les noms DOI et les liens URL) et les enregistre auprès de Datacite. Elle produit actuellement des DOI de tests, donc elle peut être lancée en toute sécurité. 
